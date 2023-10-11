@@ -1,0 +1,139 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    transition: .3s all;
+}
+
+body {
+    font-family: "Montserrat";
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 21px;
+    color: #444;
+    background: linear-gradient(0deg, rgba(1, 74, 143, 1) 35%, rgba(1, 171, 233, 1) 100%);
+    max-width: 1440px;
+    margin: auto;
+    height: 100vh;
+
+}
+
+a {
+    text-decoration: none;
+}
+
+header {
+    margin-bottom: 10em;
+}
+
+.logo {
+    width: 8em;
+}
+
+.white-heading {
+    color: white;
+    font-size: 28px;
+    font-weight: 500;
+    text-align: right;
+    margin-bottom: 2em;
+
+}
+
+.login-cards {
+    display: flex;
+    gap: 1em;
+}
+
+.account-cards {
+    background: #fcfcfc;
+    width: 100%;
+    font-size: 24px;
+    line-height: 32px;
+    border-radius: 7px;
+    padding: 1.5em 1em;
+    cursor: pointer;
+    border: 8px solid transparent;
+}
+
+.account-cards a {
+    color: #00447f;
+    font-weight: 500;
+}
+
+.account-cards:hover {
+    border: 8px solid #27bef5;
+}
+
+#login-form input,
+#deposit-form input {
+    border: none;
+    outline: none;
+    padding: .75em 1.5em;
+    max-width: 800px;
+    margin: auto;
+    border-radius: 7px;
+    color: white;
+    font-size: 30px;
+    background: rgba(0, 0, 0, .15);
+    display: block;
+    text-align: center;
+}
+
+.button {
+    background: #fcfcfc;
+    width: fit-content;
+    font-size: 22px;
+    line-height: 20px;
+    letter-spacing: 1px;
+    margin-top: 1em;
+    margin-left: auto;
+    display: block;
+    border-radius: 7px;
+    padding: .5em 1em;
+    cursor: pointer;
+    border: 8px solid transparent;
+    color: #00447f;
+    font-weight: 500;
+}
+
+.button:hover {
+    border: 8px solid #27bef5;
+
+}
+
+.balance-sumary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5em;
+    max-width: 800px;
+    margin: auto;
+    border-radius: 7px;
+    color: white;
+    font-size: 30px;
+    background: rgba(0, 0, 0, .15);
+    font-weight: 500;
+}
+
+.balance-options {
+    display: flex;
+    gap: 1em;
+    justify-content: right;
+    align-items: center;
+    margin-top: 2em;
+}
+
+.balance-options button {
+    margin-left: 0;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+}
