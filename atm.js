@@ -30,6 +30,37 @@ const movements = `
     </div>
     </div>`
 
+const getBalanceContainer = (amount, operation, operationAmount) => {
+    return `
+    <div class="balance-container">
+    <p class="white-heading">Tu saldo disponible es</p>
+    ${
+        operation ? 
+        `<div class="balance-sumary">
+        <p>Cantidad ${operation === 'deposit' ? 'depositada' : 'retirada'}</p>
+        <p>$${operationAmount}</p>
+        </div>`
+        : 
+        ''
+    }
+    <div class="balance-sumary">
+    <p>Tu saldo actual es</p>
+    <p>$${amount}</p>
+    </div>
+    <div class="balance-options">
+    <button class="button" id="go-home">Regresar a inicio</button>
+    </div>
+    </div>`}
+
+const operationContainer = (operation) => {
+
+    return `<div class="deposit-container">
+    <p class="white-heading">Ingresa la cantidad a ${operation === 'deposit' ? 'depositar' : 'retirar' }</p>
+    <form id="deposit-form">
+    <input type="number" id="amount" name="amount">
+    <button class="button" id='next'>Siguiente</button>
+    </form>
+    </div>`}
 
 const validatePassword = (realpassword, userpassword) => {
     if (userpassword === '') return
@@ -41,12 +72,21 @@ const validateAmount = (operation, newAmount, currentAmount) => {
     if (operation === 'deposit') {
         const addQuantities = currentAmount + newAmount
         if (addQuantities > 990) {
-            alert('la cantidad revasa el máximo permitido')
+            alert('la cantidad rebasa el máximo permitido')
             return
         } else {
             return addQuantities
         }
     }
+
+    const addQuantities = currentAmount - newAmount
+    if (addQuantities < 10) {
+        alert('la cantidad rebasa el máximo permitido')
+        return
+    } else {
+        return addQuantities
+    }
+
 }
 
 const login = (account) => {
@@ -72,19 +112,8 @@ const login = (account) => {
             const movementsContainer = document.querySelector('.opciones-movimientos')
 
             getBalanceButton.addEventListener('click', () => {
-                const getBalanceContainer = `
-                <div class="balance-container">
-                <p class="white-heading">Tu saldo disponible es</p>
-                <div class="balance-sumary">
-                <p>${account.nombre}</p>
-                <p>$${account.saldo}</p>
-                </div>
-                <div class="balance-options">
-                <button class="button" id="go-home">Regresar a inicio</button>
-                </div>
-                </div>`
                 movementsContainer.remove()
-                body.insertAdjacentHTML('beforeend', getBalanceContainer)
+                body.insertAdjacentHTML('beforeend', getBalanceContainer(account.saldo))
                 const goHomeButton = document.getElementById('go-home')
                 goHomeButton.addEventListener('click', () => {
                     location.reload();
@@ -94,26 +123,40 @@ const login = (account) => {
             })
 
             depositButton.addEventListener('click', () => {
-                const depositContainer = `<div class="deposit-container">
-                <p class="white-heading">Ingresa la cantidad a depositar</p>
-                <form id="deposit-form">
-                <input type="number" id="amount" name="amount">
-                <button class="button" id='next'>Siguiente</button>
-                </form>
-                </div>`
                 movementsContainer.remove()
-                body.insertAdjacentHTML('beforeend', depositContainer)
+                body.insertAdjacentHTML('beforeend', operationContainer('deposit'))
                 const depositForm = document.getElementById('deposit-form')
                 depositForm.addEventListener('submit', (event) => {
                     event.preventDefault()
                     const data = Object.fromEntries(new FormData(event.target))
-                    console.log(data.amount, account.saldo)
-                    validateAmount('deposit', Number(data.amount), account.saldo )
+                    const newAmount = validateAmount('deposit', Number(data.amount), account.saldo)
+                    console.log(newAmount)
+                    if (newAmount) {
+                        const searchDepositContainer = document.querySelector('.deposit-container')
+                        searchDepositContainer.remove()
+                        body.insertAdjacentHTML('beforeend', getBalanceContainer(newAmount,'deposit', data.amount))
+
+                    }
                 })
             })
 
             withdrawButton.addEventListener('click', () => {
-                console.log('retiro')
+                movementsContainer.remove()
+                body.insertAdjacentHTML('beforeend', operationContainer('withdrawal'))
+                const depositForm = document.getElementById('deposit-form')
+                depositForm.addEventListener('submit', (event) => {
+                    event.preventDefault()
+                    const data = Object.fromEntries(new FormData(event.target))
+                    const newAmount = validateAmount('withdrawal', Number(data.amount), account.saldo)
+                    console.log(newAmount)
+                    if (newAmount) {
+                        const searchDepositContainer = document.querySelector('.deposit-container')
+                        searchDepositContainer.remove()
+                        body.insertAdjacentHTML('beforeend', getBalanceContainer(newAmount, 'withdrawal', data.amount))
+
+                    }
+                })
+
             })
 
 
