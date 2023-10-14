@@ -69,6 +69,10 @@ const validatePassword = (realpassword, userpassword) => {
 }
 
 const validateAmount = (operation, newAmount, currentAmount) => {
+    if( newAmount < 1){
+        alert('ingresa una cantidad mayor a cero')
+        return
+    }
     if (operation === 'deposit') {
         const addQuantities = currentAmount + newAmount
         if (addQuantities > 990) {
