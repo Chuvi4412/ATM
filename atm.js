@@ -135,6 +135,10 @@ const login = (account) => {
                         const searchDepositContainer = document.querySelector('.deposit-container')
                         searchDepositContainer.remove()
                         body.insertAdjacentHTML('beforeend', getBalanceContainer(newAmount,'deposit', data.amount))
+                        const goHomeButton = document.getElementById('go-home')
+                        goHomeButton.addEventListener('click', () => {
+                            location.reload();
+                        })
 
                     }
                 })
@@ -153,6 +157,10 @@ const login = (account) => {
                         const searchDepositContainer = document.querySelector('.deposit-container')
                         searchDepositContainer.remove()
                         body.insertAdjacentHTML('beforeend', getBalanceContainer(newAmount, 'withdrawal', data.amount))
+                        const goHomeButton = document.getElementById('go-home')
+                        goHomeButton.addEventListener('click', () => {
+                            location.reload();
+                        })
 
                     }
                 })
